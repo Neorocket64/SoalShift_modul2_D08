@@ -21,7 +21,6 @@ int main()
   {
     // this will go first
 	execv("/usr/bin/unzip", extrect);
-    printf("child[1] --> pid = %d and ppid = %d\n", getpid(), getppid()); 
   } 
   else 
   {
