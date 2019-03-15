@@ -9,6 +9,8 @@
 #include <string.h>
 #include <time.h>
 
+#define PANJANG 500
+
 int main() {
   pid_t pid, sid;
 
@@ -42,8 +44,7 @@ int main() {
   int namafile = 1;
 
   while(1) {
-    char nama[3];
-    sprintf(nama,"%d",namafile);
+
     struct stat statFile;
     stat (pathFile, &statFile);
     time_t timeFile2 = statFile.st_atime;
@@ -52,10 +53,8 @@ int main() {
     if (difftime(time(NULL), timeFile2) <= 30) {
 	//membuat file diet
 
-	char pathHasil[]="/home/bryan/Documents/makanan/makan_sehat";
-	//snprintf(pathHasil + strlen(pathHasil), "%s%s", nama, ".txt");
-	strcat(pathHasil, nama);
-	strcat(pathHasil, ".txt");
+	char pathHasil[PANJANG]="/home/bryan/Documents/makanan/makan_sehat";
+	snprintf(pathHasil + strlen(pathHasil), PANJANG - strlen(pathHasil), "%d%s", namafile, ".txt");
 
 	FILE *hasil = fopen(pathHasil, "w");
 	fclose(hasil);
