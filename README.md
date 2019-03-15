@@ -4,14 +4,14 @@
 ### Pembuatan
 * Inisialisasi variabel:
     ```c
-		DIR *d;
-		struct dirent *dir;
-		char dir_o[100] = "/home/agarpac/Pictures/", 
-			dir_n[100] = "/home/agarpac/modul2/gambar/", 
-			dir_e1[100], dir_e2[100],
-			replacement[10] = "_grey", 
-			extension[5] = ".png",
-			*attach, *fname;
+	DIR *d;
+	struct dirent *dir;
+	char dir_o[100] = "/home/agarpac/Pictures/", 
+		dir_n[100] = "/home/agarpac/modul2/gambar/", 
+		dir_e1[100], dir_e2[100],
+		replacement[10] = "_grey", 
+		extension[5] = ".png",
+		*attach, *fname;
     ```
     `dir_o` dan `dir_n` adalah default direktori yang akan digunakan.
     untuk `dir_e[1-2]` akan berubah terus (full diretory of filename).
@@ -23,7 +23,7 @@
     
     Setelah itu, saatnya rename:
     ```c
-        rename(dir_e1, dir_e2);
+    rename(dir_e1, dir_e2);
     ```
 
 ## #2 Lupakan elen.ku
@@ -33,15 +33,15 @@
     Dibagi menjadi poin penting berikut;
     * mencari nama file `elen.ku`
         ```c
-            attach = strstr(dir->d_name, "elen.ku");
-			if(attach != NULL)
+        attach = strstr(dir->d_name, "elen.ku");
+		if(attach != NULL)
         ```
     * mencari `user` dari file tersebut (untuk mendapatkan `uid`)
         note : `str` dialokasikan memori supaya tidak `segment error`
         ```c
-            strcpy(str, tempat);
-			strcat(str, dir->d_name);
-			if (stat(str, &buf) == 0)
+        strcpy(str, tempat);
+		strcat(str, dir->d_name);
+		if (stat(str, &buf) == 0)
         ```
         Setelah itu, dapatkan data dari user tersebut (untuk mendapatkan `user name`)
         ```c
@@ -49,19 +49,19 @@
         ```
     * apakah `user owner` = `www-data` (pembanding)?
         ```c
-            char uname[100] = "";
-			stpcpy(uname, p->pw_name);
-			if(strcmp(uname, pembanding) == 0)
+        char uname[100] = "";
+		stpcpy(uname, p->pw_name);
+		if(strcmp(uname, pembanding) == 0)
         ```
     Belum mendapatkan solusi yang lebih pendek.
 * chmod-ing
     ```c
-        chmod (str, 777)
+    chmod (str, 777)
     ```
     `777` berarti akses untuk seluruh user(?).
 ### Waktu sebelum lanjut loop?
 ```c
-    sleep(3);
+sleep(3);
 ```
 Ini akan berjalan dalam `daemon`.
 
@@ -74,22 +74,28 @@ Ini akan berjalan dalam `daemon`.
 
     Karena itu, pencarian referensi dilakukan.
     Sumber : http://www.cs.loyola.edu/~jglenn/702/S2005/Examples/dup2.html
-    > ` 0>||>1`  `2>||>3 `
     
+    ` 0>||>1`  `2>||>3 `
     Untuk 2 pipe
-    Ganjil mempresentasikan `Output`
-    Genap mempresentasikan `Input`
+    Ganjil mempresentasikan `Output` Genap mempresentasikan `Input`.
+    Dalam perspektektif fungsi;
+    * Hasil dari `ls` akan dimasukkan ke pipe lubang 1 (output)
+        `(f) >1||`
+    * Input didapat dari lubang 0 dan output dipasang ke lubang 3 agar setelah `grep` proses, bisa output ke pipe selanjutnya
+        `||0> (f) >3||`
+    * Lubang 2 tetap dibuka supaya hasil dari pipe bisa dipakai (karena tidak memakau `exec`).
+        `||2= (f)`
 * output terakhir
     Untuk mengoutput menjadi file, lakukan berikut ini;
     Simpan apa dalam `output pipe` ke dalam variabel
     ```c
-        char filetxt[1000];
-		read(pipefd[2],filetxt,sizeof(filetxt));
-		close(pipefd[2]);
+    char filetxt[1000];
+	read(pipefd[2],filetxt,sizeof(filetxt));
+	close(pipefd[2]);
 	```
 	Menyimpan variabel yang tersimpan kepada `text file`
 	```c
-		FILE *out = fopen("daftar.txt","w+");
-		fputs(filetxt, out);
-		fclose(out);
+	FILE *out = fopen("daftar.txt","w+");
+	fputs(filetxt, out);
+	fclose(out);
     ```
