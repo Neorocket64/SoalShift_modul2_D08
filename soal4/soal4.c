@@ -53,8 +53,9 @@ int main() {
 	//membuat file diet
 
 	char pathHasil[]="/home/bryan/Documents/makanan/makan_sehat";
-	strcat(pathHasil, nama);
-	strcat(pathHasil, ".txt");
+	snprintf(pathHasil + strlen(pathHasil), "%s%s", nama, ".txt");
+	//strcat(pathHasil, nama);
+	//strcat(pathHasil, ".txt");
 
 	FILE *hasil = fopen(pathHasil, "w");
 	fclose(hasil);
