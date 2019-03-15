@@ -87,13 +87,15 @@ Ini akan berjalan dalam `daemon`.
     
     Untuk 2 pipe
     
-    Ganjil mempresentasikan `Output` Genap mempresentasikan `Input`.
+    Ganjil mempresentasikan `Output` Genap mempresentasikan `Input` (bergantung perspektif).
     
     Dalam perspektektif fungsi;
     * Hasil dari `ls` akan dimasukkan ke pipe lubang 1 (output)
     
         `(f) >1||`
     * Input didapat dari lubang 0 dan output dipasang ke lubang 3 agar setelah `grep` proses, bisa output ke pipe selanjutnya
+	
+		![bottom text](referensi/portalpipe.png "Thinking with Portal. Secara kasarnya adalah ini.")
     
         `||0> (f) >3||`
     * Lubang 2 tetap dibuka supaya hasil dari pipe bisa dipakai (karena tidak memakai `exec`).
