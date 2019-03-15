@@ -144,7 +144,7 @@ Struct `stat` digunakan untuk menyimpan segala informasi dari sebuah file
 	if (difftime(time(NULL), timeFile2) <= 30) {
 	}
 ```
-`if (difftime(time(NULL), timeFile2) <= 30)` untuk mengecek apakah waktu file dibuka `timeFile2` selama 30 detik kebelakang, relatif dari program dijalankan `time(NULL)`
+`if (difftime(time(NULL), timeFile2) <= 30)` untuk mengecek apakah `timeFile2` (waktu file dibuka) selama 30 detik kebelakang, relatif dari program dijalankan `time(NULL)`
 ```c
 	char pathHasil[]="/home/bryan/Documents/makanan/makan_sehat";
 	strcat(pathHasil, nama);
