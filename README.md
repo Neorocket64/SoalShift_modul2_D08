@@ -163,5 +163,15 @@ Kode untuk membuat dan memberi nama file yang berbeda pada setiap iterasi, denga
 ```
 ## #5 Makan Sehat
 ### Pembuatan
-*
+* Fungsi untuk memberi nama pada folder
+```c
+	time_t wktu = time(NULL);
+    	struct tm waktu = *localtime(&wktu);
+
+	static char dest[PANJANG];
+    	memset(&dest, 0, sizeof(dest));
+
+    	static char nama[PANJANG];
+    	memset(&nama, 0, sizeof(nama));
+```
 
