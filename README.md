@@ -89,10 +89,13 @@ Ini akan berjalan dalam `daemon`.
     
     Dalam perspektektif fungsi;
     * Hasil dari `ls` akan dimasukkan ke pipe lubang 1 (output)
+    
         `(f) >1||`
     * Input didapat dari lubang 0 dan output dipasang ke lubang 3 agar setelah `grep` proses, bisa output ke pipe selanjutnya
+    
         `||0> (f) >3||`
-    * Lubang 2 tetap dibuka supaya hasil dari pipe bisa dipakai (karena tidak memakau `exec`).
+    * Lubang 2 tetap dibuka supaya hasil dari pipe bisa dipakai (karena tidak memakai `exec`).
+    
         `||2= (f)`
 * output terakhir
 
