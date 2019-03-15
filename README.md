@@ -14,7 +14,9 @@
 		*attach, *fname;
     ```
     `dir_o` dan `dir_n` adalah default direktori yang akan digunakan.
+    
     untuk `dir_e[1-2]` akan berubah terus (full diretory of filename).
+    
     `replacement` untuk memberikan tambahan `_grey` dan `extension` untuk akhir filename (karena `replacement`).
     
 * Buildup the string
@@ -29,7 +31,9 @@
 ## #2 Lupakan elen.ku
 ### Pembuatan
 * Pencarian elen.ku (dan kendala)
+
     Terdapat banyak `pemeriksaan`
+    
     Dibagi menjadi poin penting berikut;
     * mencari nama file `elen.ku`
         ```c
@@ -37,6 +41,7 @@
 		if(attach != NULL)
         ```
     * mencari `user` dari file tersebut (untuk mendapatkan `uid`)
+    
         note : `str` dialokasikan memori supaya tidak `segment error`
         ```c
         strcpy(str, tempat);
@@ -68,6 +73,7 @@ Ini akan berjalan dalam `daemon`.
 ## #3 Extract dan listing file
 ### Pembuatan
 * fork()-ing
+
     ada 3 variabel yang digunakan untuk `fork()`ing. Tidak ada perbedaan dengan penggunaan 1 variabel selain visual dalam kodingan.
 * pipe
     > Mengimplementasikan `pipe` dalam C ribet.
@@ -76,8 +82,11 @@ Ini akan berjalan dalam `daemon`.
     Sumber : http://www.cs.loyola.edu/~jglenn/702/S2005/Examples/dup2.html
     
     ` 0>||>1`  `2>||>3 `
+    
     Untuk 2 pipe
+    
     Ganjil mempresentasikan `Output` Genap mempresentasikan `Input`.
+    
     Dalam perspektektif fungsi;
     * Hasil dari `ls` akan dimasukkan ke pipe lubang 1 (output)
         `(f) >1||`
@@ -86,7 +95,9 @@ Ini akan berjalan dalam `daemon`.
     * Lubang 2 tetap dibuka supaya hasil dari pipe bisa dipakai (karena tidak memakau `exec`).
         `||2= (f)`
 * output terakhir
+
     Untuk mengoutput menjadi file, lakukan berikut ini;
+    
     Simpan apa dalam `output pipe` ke dalam variabel
     ```c
     char filetxt[1000];
