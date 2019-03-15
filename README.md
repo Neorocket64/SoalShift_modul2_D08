@@ -32,6 +32,8 @@
 ### Pembuatan
 * Pencarian elen.ku (dan kendala)
 
+	![bottom text](referensi/nestedif.png "if dalam if dalam if dalam if dalam if dalam-")
+	
     Terdapat banyak `pemeriksaan`
     
     Dibagi menjadi poin penting berikut;
