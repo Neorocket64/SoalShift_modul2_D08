@@ -120,9 +120,11 @@ Ini akan berjalan dalam `daemon`.
 ## #4 Makan Sehat
 ### Pembuatan
 * Membuat Daemon
+
 Daemon digunakan agar program dapat dijalankan setiap 5 detik sekali. 
 
 * Menentukan path dari file
+
 Path dari file yang akan dicek diletakkan didalam string `pathFile`
 ```c
 	char pathFile[] = "home/bryan/Documents/makanan/makan_enak.txt";
@@ -131,6 +133,7 @@ Path dari file yang akan dicek diletakkan didalam string `pathFile`
 variabel `namafile` berisi bilangan untuk dijadikan nama dari file makan_sehat.txt
 
 * Stat & waktu file
+
 Struct `stat` digunakan untuk menyimpan segala informasi dari sebuah file 
 ```c
 	struct stat statFile;
