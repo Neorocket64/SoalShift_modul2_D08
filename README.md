@@ -161,7 +161,7 @@ Kode untuk membuat dan memberi nama file yang berbeda pada setiap iterasi, denga
 ```c
 	sleep(5);
 ```
-## #5 Makan Sehat
+## #5 Log.log
 ### Pembuatan
 * Fungsi untuk memberi nama pada folder
 ```c
