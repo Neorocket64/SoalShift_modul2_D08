@@ -117,3 +117,45 @@ Ini akan berjalan dalam `daemon`.
 	fputs(filetxt, out);
 	fclose(out);
     ```
+## #4 Makan Sehat
+### Pembuatan
+* Membuat Daemon
+Daemon digunakan agar program dapat dijalankan setiap 5 detik sekali. 
+
+* Menentukan path dari file
+Path dari file yang akan dicek diletakkan didalam string `pathFile`
+```c
+	char pathFile[] = "home/bryan/Documents/makanan/makan_enak.txt";
+  	int namafile = 1;
+```
+variabel `namafile` berisi bilangan untuk dijadikan nama dari file makan_sehat.txt
+
+* Stat & waktu file
+Struct `stat` digunakan untuk menyimpan segala informasi dari sebuah file 
+```c
+	struct stat statFile;
+   	stat (pathFile, &statFile);
+    	time_t timeFile2 = statFile.st_atime;
+```
+`st_atime` berisi waktu saat file tersebut diakses
+
+* Pembuatan file
+```c
+	if (difftime(time(NULL), timeFile2) <= 30) {
+	}
+```
+`if (difftime(time(NULL), timeFile2) <= 30)` untuk mengecek apakah waktu file dibuka `timeFile2` selama 30 detik kebelakang, relatif dari program dijalankan `time(NULL)`
+```c
+	char pathHasil[]="/home/bryan/Documents/makanan/makan_sehat";
+	strcat(pathHasil, nama);
+	strcat(pathHasil, ".txt");
+	FILE *hasil = fopen(pathHasil, "w");
+	fclose(hasil);
+	namafile++;
+```
+Kode untuk membuat dan memberi nama file yang berbeda pada setiap iterasi, dengan menggunakan variabel `namafile`
+
+* Melakukan eksekusi program setiap 5 detik
+```c
+	sleep(5);
+```
