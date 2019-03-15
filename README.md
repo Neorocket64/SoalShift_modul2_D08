@@ -147,8 +147,7 @@ Struct `stat` digunakan untuk menyimpan segala informasi dari sebuah file
 `if (difftime(time(NULL), timeFile2) <= 30)` untuk mengecek apakah `timeFile2` (waktu file dibuka) selama 30 detik kebelakang, relatif dari program dijalankan `time(NULL)`
 ```c
 	char pathHasil[]="/home/bryan/Documents/makanan/makan_sehat";
-	strcat(pathHasil, nama);
-	strcat(pathHasil, ".txt");
+	snprintf(pathHasil + strlen(pathHasil), PANJANG - strlen(pathHasil), "%d%s", namafile, ".txt");
 	FILE *hasil = fopen(pathHasil, "w");
 	fclose(hasil);
 	namafile++;
@@ -159,3 +158,5 @@ Kode untuk membuat dan memberi nama file yang berbeda pada setiap iterasi, denga
 ```c
 	sleep(5);
 ```
+## #5 Makan Sehat
+### Pembuatan
