@@ -251,11 +251,26 @@ Agar proses dijalankan setiap 30 menit, digunakan `sleep(1800)` (30 * 60).
 * Proses dalam Parent
 
   Sebelum memasuki `while(1)` perlu membuat:
-  * String untuk menyimpan nama folder setelah 30 menit kedepan
-  * Integer `start` bernilai awal 1 untuk menjadi nomor urut nama file `log$.log`
-  * Integer `counter` 
+  * String untuk menyimpan nama folder setelah 30 menit kedepan.
+  * Integer `counter` bernilai awal 0 (lalu nanti diincrement) untuk menjadi nomor urut nama file `log$.log`.
+  * Integer `start` bernilai awal 1 untuk mengecek apakah sudah waktunya pindah ke 30 menit selanjutnya.
 ```c
 char name2[PANJANG];
 int counter = 0;
 int start = 1;
+```
+Setelah itu dibuat loop `while(1)` untuk menampung isi program inti daemon
+```c
+char name1[PANJANG];
+memset(&name1, 0, sizeof(name1));
+char currentname[PANJANG];
+memset(&currentname, 0, sizeof(currentname));
+
+strcat(currentname, namafolder(1));
+
+char tmp[PANJANG];
+memset(&tmp, 0, sizeof(tmp));
+snprintf(tmp + strlen(tmp), PANJANG - strlen(tmp), "%s%s", pathdir, name2);
+
+struct stat info;
 ```
