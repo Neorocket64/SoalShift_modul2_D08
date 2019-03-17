@@ -163,6 +163,10 @@ Kode untuk membuat dan memberi nama file yang berbeda pada setiap iterasi, denga
 ```
 ## #5 Log.log
 ### Pembuatan
+* Penjelasan program
+
+Program akan menjalankan 2 proses, yaitu untuk membuat folder baru setiap 30 menit dan untuk membuat file baru setiap satu menit. Hal ini dicapai dengan melakukan fork pada proses yang ada sehingga tercipta 2 proses (child & parent).
+
 * Fungsi untuk memberi nama pada folder
 ```c
 if(x == 1)
@@ -220,4 +224,28 @@ if(x == 1)
     return nama;
 }
 ```
+Menggunakan tambahan library `time.h` sehingga dapat memanfaatkan `struct tm` untuk memberi nama pada saat membuat folder.
+`tm_min` seconds `0 - 59`
+`tm_hour` minutes `0 - 59`
+`tm_mday` hours `0 - 23`
+`tm_mon` day of month `1 - 31`
+`tm_year` years `dimulai dari 1900`
 
+Fungsi pembuatan nama folder ini menghasilkan 2 macam format nama, sehingga fungsi harus menerima argumen untuk membedakan:
+** Format waktu sekarang.
+** Format waktu 30 menit dari sekarang.
+
+Contoh formatting waktu pada nama folder (hari) dengan `tm_mday`. Hal ini dilakukan juga untuk memasukkan bulan `tm_mon` dan tahun `tm_year`. 
+```c
+        snprintf(nama + strlen(nama), PANJANG - strlen(nama), "%d%s%s", waktu.tm_mday, dest, ":");
+        snprintf(nama + strlen(nama), PANJANG - strlen(nama), "%d%s%s", waktu.tm_mon + 1, dest, ":");
+        snprintf(nama + strlen(nama), PANJANG - strlen(nama), "%d%s%s", waktu.tm_year + 1900, dest, "-");
+```
+Untuk pemformatan jam dan menit, agar terdapat 2 digit seperti format jam pada umumnya, maka akan diberi angka 0 jika jam dan menit eksekusi kurang dari 10. Jika tidak maka langsung dimasukkan tanpa diberi 0 didepannya
+```c
+        if(waktu.tm_hour < 10)
+        {
+            snprintf(nama + strlen(nama), PANJANG - strlen(nama), "%d%s%d%s", NOL, dest, waktu.tm_hour, dest);
+        }
+```
+Jika sudah selesai, maka direturn variabel `nama` yang berisi nama folder keseluruhan.
