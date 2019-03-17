@@ -240,7 +240,10 @@ snprintf(pathdir + strlen(pathdir), PANJANG - strlen(pathdir), "%s", "/home/brya
 
 sleep(1800);
 ```
-`namafolder(1)` memanggil fungsi pembuat nama folder lalu dimasukkan kedalam string `pathdir`
+`namafolder(1)` memanggil fungsi pembuat nama folder lalu dimasukkan kedalam string `pathdir`.
+
 `mkdir(pathdir, S_IRUSR|S_IWUSR|S_IXUSR|S_IRGRP|S_IWGRP|S_IXGRP|S_IROTH|S_IWOTH|S_IXOTH);` memanggil fungsi `mkdir` untuk membuat direktori, parameter pertamanya adalah nama folder, lalu parameter kedua berisi privilege dan dibuat agar bisa digunakan oleh semua entitas.
+
 Setelah itu string `pathdir` dikosongkan kembali dan diisi dengan direktori folder `/log`.
+
 Agar proses dijalankan setiap 30 menit, digunakan `sleep(1800)` (30 * 60).
