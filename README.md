@@ -249,6 +249,7 @@ Setelah itu string `pathdir` dikosongkan kembali dan diisi dengan direktori fold
 Agar proses dijalankan setiap 30 menit, digunakan `sleep(1800)` (30 * 60).
 
 * Proses dalam Parent
+
   Sebelum memasuki `while(1)` perlu membuat:
   * String untuk menyimpan nama folder setelah 30 menit kedepan
   * Integer `start` bernilai awal 1 untuk menjadi nomor urut nama file `log$.log`
