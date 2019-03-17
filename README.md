@@ -177,6 +177,7 @@ Menggunakan tambahan library `time.h` sehingga dapat memanfaatkan `struct tm` un
 `tm_year` years `dimulai dari 1900`
 
 Fungsi pembuatan nama folder ini menghasilkan 2 macam format nama, sehingga fungsi harus menerima argumen untuk membedakan:
+
 	* Format waktu sekarang.
 	* Format waktu 30 menit dari sekarang.
 
@@ -213,4 +214,5 @@ waktu.tm_min += 30;
 mktime(&waktu);
 ```
 Fungsi `mktime` berfungsi untuk mengatasi case jika menit di atas 30, saat ditambah 30 akan menjadi lebih besar dari 60.
+
 Saat sudah selesai, maka variabel `nama` direturn yang berisi nama folder secara keseluruhan.
