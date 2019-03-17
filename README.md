@@ -274,3 +274,26 @@ snprintf(tmp + strlen(tmp), PANJANG - strlen(tmp), "%s%s", pathdir, name2);
 
 struct stat info;
 ```
+`name1` berisi nama folder yang akan dipakai sebagai tempat disimpan file `log#.log`.
+`currentname` berisi menyimpan nama folder dengan waktu sekarang.
+`struct stat` berfungsi untuk pengecekan jika folder yang akan dibuat sudah ada dalam direktori `/log` atau belum
+
+```c
+if (start == 1)
+{
+memset(&name1, 0, sizeof(name1));
+strcat(name1, namafolder(1));
+memset(&name2, 0, sizeof(name2));
+strcat(name2, namafolder(0));
+}
+else if ((start < 1) && (strcmp(currentname, name2) == 0) && (stat(tmp, &info) == 0))
+{
+memset(&name1, 0, sizeof(name1));
+strcat(name1, name2);
+memset(&name2, 0, sizeof(name2));
+strcat(name2, namafolder(0));
+}
+
+memset(&tmp, 0, sizeof(tmp));
+snprintf(tmp + strlen(tmp), PANJANG - strlen(tmp), "%s%s", pathdir, name1);
+```
