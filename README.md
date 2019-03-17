@@ -229,12 +229,12 @@ char pathdir[PANJANG];
 memset(&pathdir, 0, sizeof(pathdir));
 snprintf(pathdir + strlen(pathdir), PANJANG - strlen(pathdir), "%s", "/home/bryan/log/");
 ```
-* Proses dalam child
+* Proses dalam Child
 ```c
 snprintf(pathdir + strlen(pathdir), PANJANG - strlen(pathdir), "%s", namafolder(1));
 
 mkdir(pathdir, S_IRUSR|S_IWUSR|S_IXUSR|S_IRGRP|S_IWGRP|S_IXGRP|S_IROTH|S_IWOTH|S_IXOTH);
-
+ Pro
 memset(&pathdir, 0, sizeof(pathdir));
 snprintf(pathdir + strlen(pathdir), PANJANG - strlen(pathdir), "%s", "/home/bryan/log/");
 
@@ -247,3 +247,14 @@ sleep(1800);
 Setelah itu string `pathdir` dikosongkan kembali dan diisi dengan direktori folder `/log`.
 
 Agar proses dijalankan setiap 30 menit, digunakan `sleep(1800)` (30 * 60).
+
+* Proses dalam Parent
+  Sebelum memasuki `while(1)` perlu membuat:
+  * String untuk menyimpan nama folder setelah 30 menit kedepan
+  * Integer `start` bernilai awal 1 untuk menjadi nomor urut nama file `log$.log`
+  * Integer `counter` 
+```c
+char name2[PANJANG];
+int counter = 0;
+int start = 1;
+```
