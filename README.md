@@ -178,8 +178,8 @@ Menggunakan tambahan library `time.h` sehingga dapat memanfaatkan `struct tm` un
 
 Fungsi pembuatan nama folder ini menghasilkan 2 macam format nama, sehingga fungsi harus menerima argumen untuk membedakan:
 
-  * Format waktu sekarang.
-  * Format waktu 30 menit dari sekarang.
+ * * Format waktu sekarang.
+ * * Format waktu 30 menit dari sekarang.
 
 Contoh formatting waktu pada nama folder (hari) dengan `tm_mday`. Hal ini dilakukan juga untuk memasukkan bulan `tm_mon` dan tahun `tm_year`. 
 ```c
