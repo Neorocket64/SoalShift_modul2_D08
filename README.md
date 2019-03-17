@@ -140,7 +140,7 @@ Struct `stat` digunakan untuk menyimpan segala informasi dari sebuah file
    	stat (pathFile, &statFile);
     	time_t timeFile2 = statFile.st_atime;
 ```
-`st_atime` berisi waktu saat file tersebut diakses
+`st_atime` berisi waktu saat file tersebut terakhir kali diakses
 
 * Pembuatan file
 ```c
@@ -165,13 +165,59 @@ Kode untuk membuat dan memberi nama file yang berbeda pada setiap iterasi, denga
 ### Pembuatan
 * Fungsi untuk memberi nama pada folder
 ```c
-	time_t wktu = time(NULL);
-    	struct tm waktu = *localtime(&wktu);
+if(x == 1)
+    {
+        snprintf(nama + strlen(nama), PANJANG - strlen(nama), "%d%s%s", waktu.tm_mday, dest, ":");
+        snprintf(nama + strlen(nama), PANJANG - strlen(nama), "%d%s%s", waktu.tm_mon + 1, dest, ":");
+        snprintf(nama + strlen(nama), PANJANG - strlen(nama), "%d%s%s", waktu.tm_year + 1900, dest, "-");
 
-	static char dest[PANJANG];
-    	memset(&dest, 0, sizeof(dest));
+        if(waktu.tm_hour < 10)
+        {
+            snprintf(nama + strlen(nama), PANJANG - strlen(nama), "%d%s%d%s", NOL, dest, waktu.tm_hour, dest);
+        }
+        else
+        {
+            snprintf(nama + strlen(nama), PANJANG - strlen(nama), "%d%s", waktu.tm_hour, dest);
+        }
+        strcat(nama, ":");
 
-    	static char nama[PANJANG];
-    	memset(&nama, 0, sizeof(nama));
+        if(waktu.tm_min < 10)
+        {
+            snprintf(nama + strlen(nama), PANJANG - strlen(nama), "%d%s%d%s", NOL, dest, waktu.tm_min, dest);
+        }
+        else
+        {
+            snprintf(nama + strlen(nama), PANJANG - strlen(nama), "%d%s", waktu.tm_min, dest);
+        }
+    }
+    else
+    {
+        waktu.tm_min += 30;
+        mktime(&waktu);
+        snprintf(nama + strlen(nama), PANJANG - strlen(nama), "%d%s%s", waktu.tm_mday, dest, ":");
+        snprintf(nama + strlen(nama), PANJANG - strlen(nama), "%d%s%s", waktu.tm_mon + 1, dest, ":");
+        snprintf(nama + strlen(nama), PANJANG - strlen(nama), "%d%s%s", waktu.tm_year + 1900, dest, "-");
+
+        if(waktu.tm_hour < 10)
+        {
+            snprintf(nama + strlen(nama), PANJANG - strlen(nama), "%d%s%d%s", NOL, dest, waktu.tm_hour, dest);
+        }
+        else
+        {
+            snprintf(nama + strlen(nama), PANJANG - strlen(nama), "%d%s", waktu.tm_hour, dest);
+        }
+        strcat(nama, ":");
+
+        if(waktu.tm_min < 10)
+        {
+            snprintf(nama + strlen(nama), PANJANG - strlen(nama), "%d%s%d%s", NOL, dest, waktu.tm_min, dest);
+        }
+        else
+        {
+            snprintf(nama + strlen(nama), PANJANG - strlen(nama), "%d%s", waktu.tm_min, dest);
+        }
+    }
+    return nama;
+}
 ```
 
