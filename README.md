@@ -127,8 +127,8 @@ Daemon digunakan agar program dapat dijalankan setiap 5 detik sekali.
 
 Path dari file yang akan dicek diletakkan didalam string `pathFile`
 ```c
-	char pathFile[] = "home/bryan/Documents/makanan/makan_enak.txt";
-  	int namafile = 1;
+char pathFile[] = "home/bryan/Documents/makanan/makan_enak.txt";
+int namafile = 1;
 ```
 variabel `namafile` berisi bilangan untuk dijadikan nama dari file makan_sehat.txt
 
@@ -136,24 +136,24 @@ variabel `namafile` berisi bilangan untuk dijadikan nama dari file makan_sehat.t
 
 Struct `stat` digunakan untuk menyimpan segala informasi dari sebuah file 
 ```c
-	struct stat statFile;
-   	stat (pathFile, &statFile);
-    	time_t timeFile2 = statFile.st_atime;
+struct stat statFile;
+stat (pathFile, &statFile);
+time_t timeFile2 = statFile.st_atime;
 ```
 `st_atime` berisi waktu saat file tersebut terakhir kali diakses
 
 * Pembuatan file
 ```c
-	if (difftime(time(NULL), timeFile2) <= 30) {
-	}
+if (difftime(time(NULL), timeFile2) <= 30) {
+}
 ```
 `if (difftime(time(NULL), timeFile2) <= 30)` untuk mengecek apakah `timeFile2` (waktu file dibuka) selama 30 detik kebelakang, relatif dari program dijalankan `time(NULL)`
 ```c
-	char pathHasil[]="/home/bryan/Documents/makanan/makan_sehat";
-	snprintf(pathHasil + strlen(pathHasil), PANJANG - strlen(pathHasil), "%d%s", namafile, ".txt");
-	FILE *hasil = fopen(pathHasil, "w");
-	fclose(hasil);
-	namafile++;
+char pathHasil[]="/home/bryan/Documents/makanan/makan_sehat";
+snprintf(pathHasil + strlen(pathHasil), PANJANG - strlen(pathHasil), "%d%s", namafile, ".txt");
+FILE *hasil = fopen(pathHasil, "w");
+fclose(hasil);
+namafile++;
 ```
 Kode untuk membuat dan memberi nama file yang berbeda pada setiap iterasi, dengan menggunakan variabel `namafile`
 
@@ -237,15 +237,15 @@ Fungsi pembuatan nama folder ini menghasilkan 2 macam format nama, sehingga fung
 
 Contoh formatting waktu pada nama folder (hari) dengan `tm_mday`. Hal ini dilakukan juga untuk memasukkan bulan `tm_mon` dan tahun `tm_year`. 
 ```c
-        snprintf(nama + strlen(nama), PANJANG - strlen(nama), "%d%s%s", waktu.tm_mday, dest, ":");
-        snprintf(nama + strlen(nama), PANJANG - strlen(nama), "%d%s%s", waktu.tm_mon + 1, dest, ":");
-        snprintf(nama + strlen(nama), PANJANG - strlen(nama), "%d%s%s", waktu.tm_year + 1900, dest, "-");
+snprintf(nama + strlen(nama), PANJANG - strlen(nama), "%d%s%s", waktu.tm_mday, dest, ":");
+snprintf(nama + strlen(nama), PANJANG - strlen(nama), "%d%s%s", waktu.tm_mon + 1, dest, ":");
+snprintf(nama + strlen(nama), PANJANG - strlen(nama), "%d%s%s", waktu.tm_year + 1900, dest, "-");
 ```
 Untuk pemformatan jam dan menit, agar terdapat 2 digit seperti format jam pada umumnya, maka akan diberi angka 0 jika jam dan menit eksekusi kurang dari 10. Jika tidak maka langsung dimasukkan tanpa diberi 0 didepannya
 ```c
-        if(waktu.tm_hour < 10)
-        {
-            snprintf(nama + strlen(nama), PANJANG - strlen(nama), "%d%s%d%s", NOL, dest, waktu.tm_hour, dest);
-        }
+if(waktu.tm_hour < 10)
+{
+    snprintf(nama + strlen(nama), PANJANG - strlen(nama), "%d%s%d%s", NOL, dest, waktu.tm_hour, dest);
+}
 ```
 Jika sudah selesai, maka direturn variabel `nama` yang berisi nama folder keseluruhan.
