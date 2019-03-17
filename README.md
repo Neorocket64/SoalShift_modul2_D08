@@ -214,3 +214,33 @@ mktime(&waktu);
 Fungsi `mktime` berfungsi untuk mengatasi case jika menit di atas 30, saat ditambah 30 akan menjadi lebih besar dari 60.
 
 Saat sudah selesai, maka variabel `nama` direturn yang berisi nama folder secara keseluruhan.
+
+* Membuat 2 proses berjalan bersamaan
+
+Dilakukan dengan memanggil fungsi `fork()`
+```c
+pid = fork();
+```
+* Menyimpan direktori folder
+
+Membuat sebuah variabel string untuk menyimpan direktori folder `log`
+```c
+char pathdir[PANJANG];
+memset(&pathdir, 0, sizeof(pathdir));
+snprintf(pathdir + strlen(pathdir), PANJANG - strlen(pathdir), "%s", "/home/bryan/log/");
+```
+* Proses dalam child
+```c
+snprintf(pathdir + strlen(pathdir), PANJANG - strlen(pathdir), "%s", namafolder(1));
+
+mkdir(pathdir, S_IRUSR|S_IWUSR|S_IXUSR|S_IRGRP|S_IWGRP|S_IXGRP|S_IROTH|S_IWOTH|S_IXOTH);
+
+memset(&pathdir, 0, sizeof(pathdir));
+snprintf(pathdir + strlen(pathdir), PANJANG - strlen(pathdir), "%s", "/home/bryan/log/");
+
+sleep(1800);
+```
+`namafolder(1)` memanggil fungsi pembuat nama folder lalu dimasukkan kedalam string `pathdir`
+`mkdir(pathdir, S_IRUSR|S_IWUSR|S_IXUSR|S_IRGRP|S_IWGRP|S_IXGRP|S_IROTH|S_IWOTH|S_IXOTH);` memanggil fungsi `mkdir` untuk membuat direktori, parameter pertamanya adalah nama folder, lalu parameter kedua berisi privilege dan dibuat agar bisa digunakan oleh semua entitas.
+Setelah itu string `pathdir` dikosongkan kembali dan diisi dengan direktori folder `/log`.
+Agar proses dijalankan setiap 30 menit, digunakan `sleep(1800)` (30 * 60).
