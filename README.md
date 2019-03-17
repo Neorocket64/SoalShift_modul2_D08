@@ -168,62 +168,7 @@ Kode untuk membuat dan memberi nama file yang berbeda pada setiap iterasi, denga
 Program akan menjalankan 2 proses, yaitu untuk membuat folder baru setiap 30 menit dan untuk membuat file baru setiap satu menit. Hal ini dicapai dengan melakukan fork pada proses yang ada sehingga tercipta 2 proses (child & parent).
 
 * Fungsi untuk memberi nama pada folder
-```c
-if(x == 1)
-    {
-        snprintf(nama + strlen(nama), PANJANG - strlen(nama), "%d%s%s", waktu.tm_mday, dest, ":");
-        snprintf(nama + strlen(nama), PANJANG - strlen(nama), "%d%s%s", waktu.tm_mon + 1, dest, ":");
-        snprintf(nama + strlen(nama), PANJANG - strlen(nama), "%d%s%s", waktu.tm_year + 1900, dest, "-");
 
-        if(waktu.tm_hour < 10)
-        {
-            snprintf(nama + strlen(nama), PANJANG - strlen(nama), "%d%s%d%s", NOL, dest, waktu.tm_hour, dest);
-        }
-        else
-        {
-            snprintf(nama + strlen(nama), PANJANG - strlen(nama), "%d%s", waktu.tm_hour, dest);
-        }
-        strcat(nama, ":");
-
-        if(waktu.tm_min < 10)
-        {
-            snprintf(nama + strlen(nama), PANJANG - strlen(nama), "%d%s%d%s", NOL, dest, waktu.tm_min, dest);
-        }
-        else
-        {
-            snprintf(nama + strlen(nama), PANJANG - strlen(nama), "%d%s", waktu.tm_min, dest);
-        }
-    }
-    else
-    {
-        waktu.tm_min += 30;
-        mktime(&waktu);
-        snprintf(nama + strlen(nama), PANJANG - strlen(nama), "%d%s%s", waktu.tm_mday, dest, ":");
-        snprintf(nama + strlen(nama), PANJANG - strlen(nama), "%d%s%s", waktu.tm_mon + 1, dest, ":");
-        snprintf(nama + strlen(nama), PANJANG - strlen(nama), "%d%s%s", waktu.tm_year + 1900, dest, "-");
-
-        if(waktu.tm_hour < 10)
-        {
-            snprintf(nama + strlen(nama), PANJANG - strlen(nama), "%d%s%d%s", NOL, dest, waktu.tm_hour, dest);
-        }
-        else
-        {
-            snprintf(nama + strlen(nama), PANJANG - strlen(nama), "%d%s", waktu.tm_hour, dest);
-        }
-        strcat(nama, ":");
-
-        if(waktu.tm_min < 10)
-        {
-            snprintf(nama + strlen(nama), PANJANG - strlen(nama), "%d%s%d%s", NOL, dest, waktu.tm_min, dest);
-        }
-        else
-        {
-            snprintf(nama + strlen(nama), PANJANG - strlen(nama), "%d%s", waktu.tm_min, dest);
-        }
-    }
-    return nama;
-}
-```
 Menggunakan tambahan library `time.h` sehingga dapat memanfaatkan `struct tm` untuk memberi nama pada saat membuat folder.
 `tm_min` seconds `0 - 59`
 `tm_hour` minutes `0 - 59`
@@ -247,5 +192,25 @@ if(waktu.tm_hour < 10)
 {
     snprintf(nama + strlen(nama), PANJANG - strlen(nama), "%d%s%d%s", NOL, dest, waktu.tm_hour, dest);
 }
+else
+{
+    snprintf(nama + strlen(nama), PANJANG - strlen(nama), "%d%s", waktu.tm_hour, dest);
+}
+strcat(nama, ":");
+
+if(waktu.tm_min < 10)
+{
+    snprintf(nama + strlen(nama), PANJANG - strlen(nama), "%d%s%d%s", NOL, dest, waktu.tm_min, dest);
+}
+else
+{
+    snprintf(nama + strlen(nama), PANJANG - strlen(nama), "%d%s", waktu.tm_min, dest);
+}
 ```
-Jika sudah selesai, maka direturn variabel `nama` yang berisi nama folder keseluruhan.
+Terdapat kondisi kedua ketika waktu lebih dari 30 menit. Sama persis dengan sebelumnya, hanya bagian awalnya ditambahkan
+```c
+waktu.tm_min += 30;
+mktime(&waktu);
+```
+Fungsi `mktime` berfungsi untuk mengatasi case jika menit di atas 30, saat ditambah 30 akan menjadi lebih besar dari 60.
+Saat sudah selesai, maka variabel `nama` direturn yang berisi nama folder secara keseluruhan.
