@@ -305,3 +305,55 @@ snprintf(tmp + strlen(tmp), PANJANG - strlen(tmp), "%s%s", pathdir, name1);
 
 Singkatnya, kondisi `if else` yang dijabarkan di atas berfungsi menyiapkan nama folder 30 menit kedepan dan menukar nama folder tujuan sekarang dengan nama folder 30 menit kedepan.
 
+```c
+if ((stat(tmp, &info) == 0) && (strcmp(name1, "") != 0))
+```
+Kondisi untuk mengecek apakah folder tujuan dimana file diletakkan sudah dibuat, dan string yang menyimpan folder tujuan memang sudah ada isinya.
+
+```c
+while(1)
+{
+    start--;
+    char pathsystem[PANJANG];
+    char filelog[PANJANG];
+    char dest[50];
+    char ch;
+    memset(&pathsystem, 0, sizeof(pathsystem));
+    strcat(pathsystem, "/var/log/syslog");
+
+    memset(&filelog, 0, sizeof(filelog));
+    snprintf(filelog + strlen(filelog), PANJANG - strlen(filelog), "%s%s%s", pathdir, name1, "/log");
+
+    memset(&dest, 0, sizeof(dest));
+    sprintf(dest, "%d", counter + 1);
+    snprintf(filelog + strlen(filelog), PANJANG - strlen(filelog), "%s%s", dest, ".log");
+
+    FILE *sL=fopen((char*)pathsystem, "r");
+    FILE *aL=fopen((char*)filelog, "w");
+    while((ch = fgetc(sL)) != EOF )
+    {
+	fputc(ch, aL);
+    }
+    fclose(sL);
+    fclose(aL);
+    counter++;
+    if(counter % 30 == 0)
+    {
+	break;
+    }
+    sleep(60);
+}
+```
+Didalam `while` berisi proses yang mengambil isi syslog dan menyimpannya kedalam file `log#.log` setiap menitnya.
+
+Diawali dengan melakukan decrement pada int `start` agar tidak masuk kedalam kondisi sebelumnya.
+
+Letakkan alamat direktori file `syslog` kedalam string `pathsys`.
+
+Didalam string `filelog` dimasukkan nama file yang akan dibuat, alamat direktori dari root, nama folder (format waktu), dan disisipkan integer `counter` untuk menamai file.
+
+  * `fopen` `r` digunakan untuk membaca isi dari syslog yang sudah disimpan alamatnya di `pathsystem`.
+
+  * `fopen` `w` digunakan untuk membuat file `log#.log` dengan alamat dan nama yang sudah dibuat tadi.
+  
+  
