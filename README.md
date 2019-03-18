@@ -352,8 +352,19 @@ Letakkan alamat direktori file `syslog` kedalam string `pathsys`.
 
 Didalam string `filelog` dimasukkan nama file yang akan dibuat, alamat direktori dari root, nama folder (format waktu), dan disisipkan integer `counter` untuk menamai file.
 
-    *  `fopen` `r` digunakan untuk membaca isi dari syslog yang sudah disimpan alamatnya di `pathsystem`.
+`fopen` `r` digunakan untuk membaca isi dari syslog yang sudah disimpan alamatnya di `pathsystem`.
 
-    *  `fopen` `w` digunakan untuk membuat file `log#.log` dengan alamat dan nama yang sudah dibuat tadi.
+`fopen` `w` digunakan untuk membuat file `log#.log` dengan alamat dan nama yang sudah dibuat tadi.
+ 
+`while((ch = fgetc(sL)) != EOF )` mengcopy isi syslog kedalam file tujuan, proses dilakukan hingga akhir file, dan dicopy per-karakter.
+
+Lalu 2 file yang tadi di`fopen` ditutup kembali dengan `fclose`.
+
+Tidak lupa variabel `counter` diincrement agar nama file `log#.log` tidak meng-overwrite file yang lama.
+
+Diakhir diberi kondisi jika `counter` sudah mencapai kelipatan 30 maka dikeluarkan dari loop `while` utama, dan disiapkan untuk proses pemindahan folder tujuan (proses `if else` diluar loop `while`).
+
+`sleep(60)` menandakan proses pembuatan file `log#.log` dijalankan setiap 1 menit sekali.
+
   
   
