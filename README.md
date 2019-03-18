@@ -275,7 +275,9 @@ snprintf(tmp + strlen(tmp), PANJANG - strlen(tmp), "%s%s", pathdir, name2);
 struct stat info;
 ```
 `name1` berisi nama folder yang akan dipakai sebagai tempat disimpan file `log#.log`.
+
 `currentname` berisi menyimpan nama folder dengan waktu sekarang.
+
 `struct stat` berfungsi untuk pengecekan jika folder yang akan dibuat sudah ada dalam direktori `/log` atau belum
 
 ```c
@@ -297,3 +299,9 @@ strcat(name2, namafolder(0));
 memset(&tmp, 0, sizeof(tmp));
 snprintf(tmp + strlen(tmp), PANJANG - strlen(tmp), "%s%s", pathdir, name1);
 ```
+`if (start == 1)` berfungsi untuk mengecek apakah proses baru dijalankan pertama kali atau tidak. Jika iya, maka string yang menyimpan nama folder tujuan dibuat file diisi dengan nama folder dengan waktu sekarang, dan string yang berfungsi menyimpan nama folder 30 menit kedepan diisi nama folder dengan waktu 30 menit selanjutnya.
+
+`else if ((start < 1) && (strcmp(currentname, name2) == 0) && (stat(tmp, &info) == 0))` Jika proses sudah pernah dijalankan, dan nama folder 30 menit kedepan sama dengan waktu sekarang, dan folder dengan nama 30 menit kedepan sudah terbuat, maka string yang berfungsi menyimpan folder tujuan sekarang diganti dengan nama folder 30 menit kedepan, dan string yang menyimpan nama folder 30 menit kedepan diganti dengan nama folder 30 menit selanjutnya lagi.
+
+Singkatnya, kondisi `if else` yang dijabarkan di atas berfungsi menyiapkan nama folder 30 menit kedepan dan menukar nama folder tujuan sekarang dengan nama folder 30 menit kedepan.
+
