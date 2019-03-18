@@ -352,8 +352,8 @@ Letakkan alamat direktori file `syslog` kedalam string `pathsys`.
 
 Didalam string `filelog` dimasukkan nama file yang akan dibuat, alamat direktori dari root, nama folder (format waktu), dan disisipkan integer `counter` untuk menamai file.
 
-  * `fopen` `r` digunakan untuk membaca isi dari syslog yang sudah disimpan alamatnya di `pathsystem`.
+  *  `fopen` `r` digunakan untuk membaca isi dari syslog yang sudah disimpan alamatnya di `pathsystem`.
 
-  * `fopen` `w` digunakan untuk membuat file `log#.log` dengan alamat dan nama yang sudah dibuat tadi.
+  *  `fopen` `w` digunakan untuk membuat file `log#.log` dengan alamat dan nama yang sudah dibuat tadi.
   
   
