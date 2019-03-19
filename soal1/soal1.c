@@ -64,18 +64,18 @@ int main()
 				if(attach != NULL)
 				{
 					strcpy( dir_e1, dir_o );
-					strcat( dir_e1, dir->d_name );
+					strcat( strcat( dir_e2, strtok( dir->d_name, "." ) ), extension );
 					strcpy( dir_e2, dir_n );
 					strcat( strcat ( strcat( dir_e2, strtok( dir->d_name, "." ) ), replacement ), extension );
+					printf("%s\n", dir_e2);
 					//printf(" old : %s\n new : %s\n", dir_e1, dir_e2);
 					rename(dir_e1, dir_e2);
 				}
 			}
 			closedir(d);
 		}
-		return(0);
 
-		sleep(30);
+		sleep(1);
 	}
 
 	exit(EXIT_SUCCESS);
